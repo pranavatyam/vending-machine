@@ -33,17 +33,17 @@ module tb_top (
 
     // Instantiate the Vendor Controller DUT [cite: 1, 19]
     vending_top dut (
-        .clk(clk),                  // 100MHz System Clock [cite: 33, 90]
-        .rstn(rstn),                // Active low reset [cite: 37, 90]
-        .cfg_mode(cfg_mode),        // High for Config Mode [cite: 57, 90]
+        .clk(clk),
+        .rstn(rstn),
+        .cfg_mode(cfg_mode),
         .currency_valid(currency_valid),
         .currency_value(currency_value),
         .item_select_valid(item_select_valid),
         .item_select(item_select),
         .no_of_items(no_of_items),
-        .pclk(pclk),                // 50MHz Config Clock [cite: 51, 99]
-        .prstn(prstn),              // Synchronous Reset [cite: 99]
-        .paddr(paddr),              // 32-bit Address [cite: 99]
+        .pclk(pclk),
+        .prstn(prstn),
+        .paddr(paddr),
         .psel(psel),
         .pwrite(pwrite),
         .pwdata(pwdata),

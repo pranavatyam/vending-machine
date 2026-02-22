@@ -358,16 +358,11 @@ void Vtb_top___024root___nba_comb__TOP__0(Vtb_top___024root* vlSelf) {
     if ((4U == (IData)(vlSelfRef.tb_top__DOT__dut__DOT__fsm_inst__DOT__current_state))) {
         vlSelfRef.item_dispense = 0x03ffU;
         vlSelfRef.no_of_items_out = 0U;
-        vlSelfRef.currency_change = (0x0000ffffU & 
-                                     (0x0000ffffU & vlSelfRef.tb_top__DOT__dut__DOT__fsm_inst__DOT__accumulated_curr));
+        vlSelfRef.currency_change = (0x0000ffffU & vlSelfRef.tb_top__DOT__dut__DOT__fsm_inst__DOT__accumulated_curr);
     } else {
         vlSelfRef.item_dispense = vlSelfRef.tb_top__DOT__dut__DOT__fsm_inst__DOT__latched_item;
         vlSelfRef.no_of_items_out = vlSelfRef.tb_top__DOT__dut__DOT__fsm_inst__DOT__latched_qty;
-        vlSelfRef.currency_change = (0x0000ffffU & 
-                                     ((3U == (IData)(vlSelfRef.tb_top__DOT__dut__DOT__fsm_inst__DOT__current_state))
-                                       ? (vlSelfRef.tb_top__DOT__dut__DOT__fsm_inst__DOT__accumulated_curr 
-                                          - vlSelfRef.tb_top__DOT__dut__DOT__fsm_inst__DOT__total_cost)
-                                       : 0U));
+        vlSelfRef.currency_change = 0U;
     }
 }
 
