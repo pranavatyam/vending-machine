@@ -1,10 +1,11 @@
 <div align="center">
   <h1>🛒 Vending Machine Controller IP</h1>
   <p>
-    <img src="https://img.shields.io/badge/Language-SystemVerilog-orange.svg" />
-    <img src="https://img.shields.io/badge/Verification-UVM%201.2-blue.svg" />
-    <img src="https://img.shields.io/badge/Simulator-Siemens%20Questa-green.svg" />
-    <img src="https://img.shields.io/badge/Platform-Windows%20VM-blueviolet.svg" />
+    ![SystemVerilog](https://img.shields.io/badge/Language-SystemVerilog-blue)
+    ![Verilator](https://img.shields.io/badge/Simulator-Verilator-green)
+    ![APB](https://img.shields.io/badge/Bus-AMBA_APB-orange)
+    ![CDC](https://img.shields.io/badge/Focus-Clock_Domain_Crossing-red)
+    ![Status](https://img.shields.io/badge/Verification-PASS-brightgreen)
   </p>
   <p><b>A high-performance RTL core featuring an APB configuration interface and a robust UVM verification environment.</b></p>
 </div>
