@@ -67,7 +67,7 @@ The IP is verified using an industry-standard **UVM 1.2** environment in **Sieme
 
 <h3 align="center">🔍 Functional Trace</h3>
 <p align="center">
-  <img src="signals.png" alt="Simulation Waveforms" width="900">
+  <img src="signals.jpg" alt="Simulation Waveforms" width="900">
   <br>
   <i>Figure 1: Simulation trace showing a successful 15 Rs purchase (400ns) and an Out-of-Stock refund (900ns).</i>
 </p>
