@@ -106,7 +106,6 @@ The design is verified using a C++ regression suite that monitors hardware signa
 - **Status**: Safety logic triggered — **PASSED ✅**
 
 <h3 align="center">🔍 Functional Trace</h3>
-<h3 align="center">🔍 Current Functional Trace</h3>
 <p align="center">
   <img src="signals.png" alt="Simulation Waveforms" width="900">
   <br>
