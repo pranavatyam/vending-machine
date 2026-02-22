@@ -81,13 +81,6 @@ The IP is verified using an industry-standard **UVM 1.2** environment in **Sieme
 
 ---
 
-### 🛠️ Migration Journey
-Originally developed using **C++/Verilator** on macOS, this project was migrated to a **Windows VM** environment to leverage **UVM (Universal Verification Methodology)**. This transition involved:
-1.  Replacing the procedural C++ testbench with a class-based **UVM Driver**.
-2.  Implementing **Constrained Randomization** for currency denominations.
-3.  Utilizing **Virtual Interfaces** to bridge dynamic classes with static RTL.
-
----
 <div align="center">
-  <sub>Developed by Pranav Kumar Atyam | Purdue University</sub>
+  <sub>Developed by Pranav Kumar Atyam </sub>
 </div>
