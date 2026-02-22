@@ -2,32 +2,31 @@
   <h1>🛒 Vending Machine Controller IP</h1>
   <p>
     <img src="https://img.shields.io/badge/Language-SystemVerilog-orange.svg" />
-    <img src="https://img.shields.io/badge/Simulator-Verilator-blue.svg" />
-    <img src="https://img.shields.io/badge/Verification-C%2B%2B%20Assertions-green.svg" />
-    <img src="https://img.shields.io/badge/Viewer-Surfer-purple.svg" />
+    <img src="https://img.shields.io/badge/Verification-UVM%201.2-blue.svg" />
+    <img src="https://img.shields.io/badge/Simulator-Siemens%20Questa-green.svg" />
+    <img src="https://img.shields.io/badge/Platform-Windows%20VM-blueviolet.svg" />
   </p>
-  <p><b>A high-performance, parameterizable RTL core featuring an APB configuration interface and dual-clock domain support.</b></p>
+  <p><b>A high-performance RTL core featuring an APB configuration interface and a robust UVM verification environment.</b></p>
 </div>
 
 ---
 
 ### 📋 Technical Overview
-This Vending Machine Controller is a modular IP core designed for integration into modern SoC environments. It handles item inventory, real-time price calculation, and multi-denomination currency accumulation with strict hardware safety protocols.
+This project implements a parameterizable Vending Machine Controller designed for modern SoC integration. It manages item inventory, calculates pricing, and handles multi-denomination currency with deterministic hardware timing.
 
 ### 🏗️ Architecture & Features
-* **Dual-Clock Domain**:
-    * **System Clock (100MHz)**: High-speed domain for FSM logic and currency tracking.
-    * **APB Clock (50MHz)**: Reliable domain for register configuration.
-* **Standard Interface**: Uses AMBA APB for runtime programming of up to **1024 unique items**.
-* **Input Synchronization**: Asynchronous user inputs are passed through multi-stage synchronizers to prevent metastability.
-* **Deterministic Timing**: A Moore-type FSM ensures a response latency of **<10 system clock cycles**.
-* **Safety & Recovery**: Automated "Out of Stock" detection returns an `0xFFFF` code and a full refund.
+* **Dual-Clock Domain Support**: 
+    * **System Clock (100MHz)**: Drives core FSM and currency logic.
+    * **APB Clock (50MHz)**: Drives the configuration register bank.
+* **APB Configuration Interface**: Allows runtime programming of prices and quantities for up to **1024 unique items**.
+* **Deterministic Latency**: Guaranteed response time of **<10 system clock cycles** (<100ns) from final currency input to dispense.
+* **Safety & Fault Recovery**: Automatically handles "Out-of-Stock" scenarios by returning a full refund and an error code (`0x3FF`).
 
 
 
 ---
 
-### 📂 File Descriptions
+### 📂 File Structure
 
 <table width="100%">
   <thead>
@@ -41,79 +40,54 @@ This Vending Machine Controller is a modular IP core designed for integration in
     <tr>
       <td><code>rtl/common/vending_pkg.sv</code></td>
       <td><b>Package</b></td>
-      <td>Centralized definitions for parameters like <code>ITEM_ADDR_W</code> and the <code>EMPTY_CODE</code> constant.</td>
-    </tr>
-    <tr>
-      <td><code>rtl/vending_cfg_regs.sv</code></td>
-      <td><b>Configuration</b></td>
-      <td>APB register bank; manages pricing and inventory levels for the machine.</td>
-    </tr>
-    <tr>
-      <td><code>rtl/vending_input_ctrl.sv</code></td>
-      <td><b>Input</b></td>
-      <td>Synchronizes asynchronous user inputs to the 100MHz system clock domain.</td>
-    </tr>
-    <tr>
-      <td><code>rtl/vending_fsm.sv</code></td>
-      <td><b>Control Path</b></td>
-      <td>The main FSM handling the purchase flow, accumulation, and refund logic.</td>
-    </tr>
-    <tr>
-      <td><code>rtl/vending_output_ctrl.sv</code></td>
-      <td><b>Output</b></td>
-      <td>Generates the single-cycle dispense pulse and drives output buses.</td>
+      <td>Centralized definitions for parameters like <code>ITEM_ADDR_W</code> and <code>EMPTY_CODE</code>.</td>
     </tr>
     <tr>
       <td><code>rtl/vending_top.sv</code></td>
       <td><b>Top Level</b></td>
-      <td>The structural wrapper that instantiates and wires all sub-modules.</td>
+      <td>Structural wrapper instantiating the FSM, Register Bank, and Input/Output controllers.</td>
     </tr>
     <tr>
-      <td><code>dv/tb_top.sv</code></td>
-      <td><b>Testbench Top</b></td>
-      <td>Connects RTL signals to the Verilator C++ simulation environment.</td>
+      <td><code>dv/vending_if.sv</code></td>
+      <td><b>Interface</b></td>
+      <td>The SystemVerilog interface bundling dual-clock signals for UVM connection.</td>
     </tr>
     <tr>
-      <td><code>dv/sim_main.cpp</code></td>
-      <td><b>Driver</b></td>
-      <td>C++ test suite responsible for clock generation, stimulus, and assertions.</td>
+      <td><code>dv/env/</code></td>
+      <td><b>UVM Env</b></td>
+      <td>Contains the UVM Driver, Monitor, and Scoreboard classes for professional verification.</td>
     </tr>
   </tbody>
 </table>
 
 ---
 
-### 🗺️ APB Address Map
-| Address Offset | Register Name | Description |
-| :--- | :--- | :--- |
-| `0x4000_0000` | `GLOBAL_CFG` | Bits [9:0]: Total number of items managed. |
-| `0x4000_0004` | `ITEM_0_CFG` | Bits [15:0]: Price (Rs) \| Bits [23:16]: Quantity. |
-| `0x4000_XXXX` | `ITEM_N_CFG` | Individual configuration for items up to index 1023. |
+### 🚦 Verification & Waveforms
+The IP is verified using an industry-standard **UVM 1.2** environment in **Siemens Questa**. The test suite validates protocol compliance for the APB bus and the functional correctness of the vending FSM.
 
----
+<h3 align="center">🔍 Functional Trace</h3>
+<p align="center">
+  <img src="signals.png" alt="Simulation Waveforms" width="900">
+  <br>
+  <i>Figure 1: Simulation trace showing a successful 15 Rs purchase (400ns) and an Out-of-Stock refund (900ns).</i>
+</p>
 
-### 🚦 Verification Results
-The design is verified using a C++ regression suite that monitors hardware signals and calculates latency in real-time.
-
-#### **Test Scenario 1: Standard Purchase**
-- **Action**: Item #0 (15 Rs) selected; 20 Rs inserted.
-- **Result**: `item_dispense_valid` triggered; `currency_change` = 5 Rs.
-- **Latency**: ~50ns (5 cycles) — **PASSED ✅**
-
-#### **Test Scenario 2: Out of Stock**
-- **Action**: Item #2 (Qty: 0) selected; 10 Rs inserted.
-- **Result**: `item_dispense` = `0x3FF` (Empty Code); Full 10 Rs refund.
-- **Status**: Safety logic triggered — **PASSED ✅**
+#### **Verified Signals:**
+* **APB Config**: Correct write to address `0x4000_0004` (Item 0) with `pwdata` `0x000A000F`.
+* **Transaction Pulse**: `currency_valid` high triggers the FSM transition.
+* **Correct Change**: Output `currency_chan` validates the 15 Rs item / 20 Rs payment math.
 
 
 
 ---
 
-### 🛠️ Execution
-To build the IP and run the verification suite:
-```bash
-# Clean previous builds
-make clean
+### 🛠️ Migration Journey
+Originally developed using **C++/Verilator** on macOS, this project was migrated to a **Windows VM** environment to leverage **UVM (Universal Verification Methodology)**. This transition involved:
+1.  Replacing the procedural C++ testbench with a class-based **UVM Driver**.
+2.  Implementing **Constrained Randomization** for currency denominations.
+3.  Utilizing **Virtual Interfaces** to bridge dynamic classes with static RTL.
 
-# Compile and run simulation (Surfer opens automatically)
-make
+---
+<div align="center">
+  <sub>Developed by Pranav Kumar Atyam | Purdue University</sub>
+</div>

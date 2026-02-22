@@ -26,7 +26,7 @@ module vending_output_ctrl (
             item_dispense <= '0;
             no_of_items <= 8'h0;
             currency_change <= 16'h0;
-        end else begin.
+        end else begin
             item_dispense_valid <= fsm_dispense_valid;
             
             if (fsm_dispense_valid) begin
