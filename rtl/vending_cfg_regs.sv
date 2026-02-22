@@ -2,20 +2,20 @@ import vending_pkg::*;
 
 module vending_cfg_regs (
     // APB Interface (50MHz)
-    input  logic                    pclk,
-    input  logic                    prstn,
-    input  logic [31:0]             paddr,
-    input  logic                    psel,
-    input  logic                    pwrite,
-    input  logic [31:0]             pwdata,
-    output logic [31:0]             prdata,
-    output logic                    pready,
+    input  logic pclk,
+    input  logic prstn,
+    input  logic [31:0] paddr,
+    input  logic psel,
+    input  logic pwrite,
+    input  logic [31:0] pwdata,
+    output logic [31:0] prdata,
+    output logic pready,
 
     // Interface to Main FSM (100MHz System Clock)
-    input  logic [ITEM_ADDR_W-1:0]  fsm_item_index,
-    output logic [15:0]             fsm_item_val,
-    output logic [7:0]              fsm_avail_count,
-    input  logic                         fsm_dispense_en
+    input  logic [ITEM_ADDR_W-1:0] fsm_item_index,
+    output logic [15:0] fsm_item_val,
+    output logic [7:0]fsm_avail_count,
+    input  logic  fsm_dispense_en
 );
 
     // Internal Storage: [31:24] disp_items, [23:16] avail_items, [15:0] item_val

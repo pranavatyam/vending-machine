@@ -1,22 +1,22 @@
 import vending_pkg::*;
 
 module vending_input_ctrl (
-    input  logic                    clk,
-    input  logic                    rstn,
+    input logic clk,
+    input logic rstn,
     
     // Asynchronous Inputs
-    input  logic                    async_currency_valid,
-    input  logic [CURR_VAL_W-1:0]   async_currency_value,
-    input  logic                    async_item_valid,    
-    input  logic [ITEM_ADDR_W-1:0]  async_item_select,   
-    input  logic [7:0]              async_no_of_items,   
+    input logic async_currency_valid,
+    input logic [CURR_VAL_W-1:0] async_currency_value,
+    input logic async_item_valid,    
+    input logic [ITEM_ADDR_W-1:0] async_item_select,   
+    input logic [7:0] async_no_of_items,   
 
     // Synchronized Outputs
-    output logic                    sync_curr_valid,
-    output logic [CURR_VAL_W-1:0]   sync_curr_value,
-    output logic                    sync_item_valid,
-    output logic [ITEM_ADDR_W-1:0]  sync_item_select,
-    output logic [7:0]              sync_no_of_items
+    output logic sync_curr_valid,
+    output logic [CURR_VAL_W-1:0] sync_curr_value,
+    output logic sync_item_valid,
+    output logic [ITEM_ADDR_W-1:0] sync_item_select,
+    output logic [7:0] sync_no_of_items
 );
 
     logic [2:0] curr_vld_sync;

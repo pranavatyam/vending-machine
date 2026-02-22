@@ -3,24 +3,24 @@ import vending_pkg::*;
 
 module tb_top (
     // Pass signals up to the C++ wrapper
-    input  logic clk,
-    input  logic pclk,
-    input  logic rstn,
-    input  logic prstn,
-    input  logic cfg_mode,
+    input logic clk,
+    input logic pclk,
+    input logic rstn,
+    input logic prstn,
+    input logic cfg_mode,
     
     // Inputs to drive
-    input  logic currency_valid,
-    input  logic [CURR_VAL_W-1:0] currency_value,
-    input  logic item_select_valid,
-    input  logic [ITEM_ADDR_W-1:0] item_select,
-    input  logic [7:0] no_of_items,
+    input logic currency_valid,
+    input logic [CURR_VAL_W-1:0] currency_value,
+    input logic item_select_valid,
+    input logic [ITEM_ADDR_W-1:0] item_select,
+    input logic [7:0] no_of_items,
 
     // APB Inputs
-    input  logic [31:0] paddr,
-    input  logic [31:0] pwdata,
-    input  logic psel,
-    input  logic pwrite,
+    input logic [31:0] paddr,
+    input logic [31:0] pwdata,
+    input logic psel,
+    input logic pwrite,
 
     // Outputs to monitor
     output logic [31:0] prdata,
